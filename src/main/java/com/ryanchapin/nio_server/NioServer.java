@@ -1,4 +1,4 @@
-package com.ryanchapin.NioServer;
+package com.ryanchapin.nio_server;
 
 /**
  * Hello world!

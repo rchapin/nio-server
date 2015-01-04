@@ -1,4 +1,4 @@
-package com.ryanchapin.NioServer;
+package com.ryanchapin.nio_server;
 
 import junit.framework.Test;
 import junit.framework.TestCase;
