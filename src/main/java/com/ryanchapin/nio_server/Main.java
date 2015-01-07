@@ -10,6 +10,10 @@ public class Main {
 	public static void setNioServerManager(NioServerManager nioServerManager) {
 		Main.nioServerManager = nioServerManager;
 	}
+
+	public static NioServerManager getNioServerManager() {
+		return nioServerManager;
+	}
 	
 	/**
 	 * Entry point for the NioServer program.

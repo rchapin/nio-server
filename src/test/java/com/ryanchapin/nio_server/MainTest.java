@@ -3,22 +3,26 @@ package com.ryanchapin.nio_server;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.powermock.api.mockito.PowerMockito;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Main.class)
 public class MainTest {
 	
 	private static final String CONFIG_PATH = "/tmp/test.properties";
+	private static final String[] ARGS = new String[] { CONFIG_PATH };
 	
-	// private JUnit4Mockery mockery = new JUnit4Mockery();
-
 	@Mock
 	private NioServerManager mockNioServerManager;
 	
 	@Before
-	public void setUp() {
-		mockNioServerManager = Mockito.mock(NioServerManager.class);	
+	public void setUp() throws Exception {
+		mockNioServerManager = Mockito.mock(NioServerManager.class);
 	}
 	
 	@After
@@ -34,20 +38,17 @@ public class MainTest {
 	 */
 	@Test
 	public void shouldCreateValidNioServerManager() throws Exception {
-		// Set up the whenNew expectation to return an instance of the mocked
-		// class
 		PowerMockito.whenNew(NioServerManager.class)
 			.withNoArguments()
 			.thenReturn(mockNioServerManager);
-		
-		// Main.setNioServerManager(mockNioServerManager);
-		Main.main(new String[] { CONFIG_PATH });
-		
+		Main.main(ARGS);
 		PowerMockito.verifyNew(NioServerManager.class);
 	}
 	
-	public void shouldCallNioServerManagerWithCorrectArgs() {
-		
+	@Test
+	public void shouldPassArgsToNioServerManagerWithCorrectArgs() {
+		Main.setNioServerManager(mockNioServerManager);
+		Main.main(ARGS);
+		Mockito.verify(mockNioServerManager).run(ARGS);
 	}
-
 }
